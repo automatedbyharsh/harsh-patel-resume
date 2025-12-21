@@ -232,6 +232,9 @@
     <header>
       <h1 class="name">Harsh Patel</h1>
       <p class="contact">Toronto &nbsp;|&nbsp; 647-807-7509 &nbsp;|&nbsp; <a href="mailto:harshkumar.patel2107@gmail.com">harshkumar.patel2107@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/harsh-patel-canadian-tire-10april2023/" target="_blank" rel="noopener">LinkedIn</a></p>
+      <p class="contact" id="viewer-count" style="margin-top:8px; color:#444; font-weight:600;">
+        Views: —
+      </p>
       <div class="pdf-link">
         Download PDF: <a href="resume/Harsh_Patel_Resume.pdf" target="_blank" rel="noopener">Harsh_Patel_Resume.pdf</a>
       </div>
@@ -376,12 +379,14 @@
   </div>
   <script>
     const OPTIN_API_URL = "https://6x183mmncd.execute-api.us-east-2.amazonaws.com/prod/optin";
+    const STATS_API_URL = "https://6x183mmncd.execute-api.us-east-2.amazonaws.com/prod/optin";
 
     const overlayEl = document.getElementById("optin-overlay");
     const formEl = document.getElementById("optin-form");
     const nameEl = document.getElementById("optin-name");
     const emailEl = document.getElementById("optin-email");
     const errorEl = document.getElementById("optin-error");
+    const viewerCountEl = document.getElementById("viewer-count");
 
     const showError = (message) => {
       errorEl.textContent = message;
@@ -403,6 +408,43 @@
       overlayEl.setAttribute("aria-hidden", "false");
       nameEl.focus();
     };
+
+    async function incrementView() {
+      try {
+        await fetch(OPTIN_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "view" })
+        });
+      } catch {
+        // ignore (do not break UX)
+      }
+    }
+
+    async function loadViewerCount() {
+      try {
+        const res = await fetch(STATS_API_URL, { method: "GET" });
+        const data = await res.json();
+        if (data?.ok && typeof data.views === "number" && viewerCountEl) {
+          viewerCountEl.textContent = `Views: ${data.views}`;
+        }
+      } catch {
+        // ignore
+      }
+    }
+
+    function shouldCountViewToday() {
+      const key = "resume_view_last_counted";
+      const today = new Date().toISOString().slice(0, 10);
+      const last = localStorage.getItem(key);
+
+      if (last === today) {
+        return false;
+      }
+
+      localStorage.setItem(key, today);
+      return true;
+    }
 
     formEl.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -434,7 +476,11 @@
       closeOverlay();
     });
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load", async () => {
+      if (shouldCountViewToday()) {
+        incrementView();
+      }
+      loadViewerCount();
       openOverlay();
     });
   </script>
