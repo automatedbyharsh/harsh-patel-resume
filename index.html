@@ -1,0 +1,442 @@
+ <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harsh Patel — Resume</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #444;
+      --rule: #e6e6e6;
+      --accent: #0b4a8b;
+      --bg: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+    header {
+      text-align: center;
+      padding: 8px 0 18px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .name {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      margin: 0;
+      color: var(--accent);
+    }
+    .contact {
+      margin: 10px 0 0;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .contact a { color: var(--accent); text-decoration: underline; font-weight: 600; }
+    .section {
+      padding-top: 22px;
+    }
+    .section-divider {
+      border-top: 2px solid var(--ink);
+      margin-top: 18px;
+      padding-top: 22px;
+    }
+    .section h2 {
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+      color: var(--accent);
+    }
+    .section .rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 10px 0 0;
+    }
+    .summary {
+      margin: 8px 0 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .job {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+    }
+    .job:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 10px;
+    }
+    .job-header {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .company {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .title-dates {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+    li {
+      margin: 6px 0;
+      color: var(--ink);
+      font-size: 14px;
+    }
+    .job-subsection {
+      margin-top: 10px;
+    }
+    .job-subsection-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+      margin: 6px 0 0;
+    }
+    .project-list {
+      margin: 6px 0 0 20px;
+      padding: 0;
+    }
+    .project-list li {
+      margin: 6px 0;
+    }
+    .skill-cat {
+      font-weight: 700;
+    }
+    .skills-list {
+      list-style: none;
+      margin: 8px 0 0;
+      padding: 0;
+    }
+    .skills-list li {
+      position: relative;
+      padding-left: 18px;
+      list-style: none;
+    }
+    .skills-list li::before {
+      content: "➢";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .edu-degree {
+      font-weight: 700;
+    }
+    .edu-date {
+      color: var(--muted);
+    }
+    .pdf-link {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+    }
+    .pdf-link a { color: var(--accent); }
+    .optin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .optin-overlay.is-open { display: flex; }
+    .optin-card {
+      width: min(520px, 100%);
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 20px;
+    }
+    .optin-card h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      color: var(--accent);
+    }
+    .optin-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .optin-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .optin-field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .optin-field input {
+      border: 1px solid var(--rule);
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .optin-error {
+      color: #b00020;
+      font-size: 13px;
+      margin: 4px 0 10px;
+      display: none;
+    }
+    .optin-error.is-visible { display: block; }
+    .optin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .optin-actions button {
+      border: 2px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .optin-actions .primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    @media print {
+      .pdf-link { display:none; }
+      body { background: #fff; }
+      .wrap { max-width: none; padding: 0; }
+      header { border-bottom: 1px solid #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 class="name">Harsh Patel</h1>
+      <p class="contact">Toronto &nbsp;|&nbsp; 647-807-7509 &nbsp;|&nbsp; <a href="mailto:harshkumar.patel2107@gmail.com">harshkumar.patel2107@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/harsh-patel-canadian-tire-10april2023/" target="_blank" rel="noopener">LinkedIn</a></p>
+      <div class="pdf-link">
+        Download PDF: <a href="resume/Harsh_Patel_Resume.pdf" target="_blank" rel="noopener">Harsh_Patel_Resume.pdf</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Professional Summary</h2>
+      <p class="summary">Senior Test Automation developer with 8+ years of experience leading global QA automation initiatives for enterprise retail and e-commerce. Proven ability to architect resilient Java/Spring frameworks, optimize CI/CD pipelines, and drive automation-first strategies. Recognized for mentoring distributed teams and collaborating cross-functionally to deliver seamless customer experiences and reliable, data-driven releases across AEM-driven platforms.</p>
+    </section>
+
+    <section class="section section-divider">
+      <h2>Professional Experience</h2>
+      
+      <div class="job">
+        <div class="job-header">
+          <div class="company">Canadian Tire | Toronto</div>
+          <div class="title-dates">Senior Test Automation Developer | April 2023 – October 2025</div>
+        </div>
+        <ul class="skills-list">
+          <li>Led a global automation team of 10+ members (India &amp; Ukraine), conducting daily syncs and quarterly planning; managed workloads, reallocated resources, and mentored newcomers while enforcing coding standards and accelerating onboarding.</li>
+          <li>Designed and evolved enterprise-grade automation frameworks in Java 17/Spring Boot using Selenium, Selenide, Cucumber (BDD), JUnit/TestNG, REST Assured, Lombok, Awaitility, AssertJ, JaVers, and AspectJ, enhancing stability and reuse across teams.</li>
+          <li>Led E2E QA across six retail banners on AEM/SAP Commerce (CCv2), validating complex order-to-fulfillment flows (CCv2, SFSC, IA, VPOS, Frontier, Narvar, DoorDash, IVR) for BOPIS, Ship-to-Home, and Same-Day; ensured accurate, event-driven orchestration of order status, payments, and customer tracking across web, mobile, and in-store channels.</li>
+          <li>Led the enterprise adoption of GenAI platform Alita, an in-house solution integrating Jira, Confluence, qTest, and automation repositories to auto-generate manual test cases, BDD scenarios, and step implementations; partnered with the AI team through weekly refinement sessions to enhance accuracy, scalability, and business adoption across QA operations.</li>
+          <li>Implemented automated quality checks (smoke, end-to-end, regression) that safeguarded build integrity and accelerated promotion decisions across pre-production environments for multi-banner applications.</li>
+          <li>Built and optimized multi-stage Azure Pipelines (YAML templates, variable groups, artifact orchestration) with Gradle; introduced targeted reruns to reduce flakiness and shorten cycle times; integrated Sauce Labs tunnels for secure, distributed execution.</li>
+          <li>Strengthened UX confidence by ensuring cross-browser validation (Chrome, Safari, Edge) and multi-viewport testing (desktop, tablet, mobile/iPad) across all retail banners.</li>
+          <li>Managed a 2,000+ test regression portfolio, updating test cases, dependencies, and data sets to improve suite stability and reliability across product lines.</li>
+          <li>Created runbooks and access guides covering environment management, test-data resets, service-account provisioning (including 2FA bypass), and key platforms (SAP Commerce Cloud, SAP Customer Data Cloud (Gigya), Epsilon, DOM, fulfillment/merchandising apps) ensuring consistency and faster issue resolution.</li>
+          <li>Raised code quality standards by enforcing static analysis gates and reviewing pull requests, ensuring consistent practices across the distributed team.</li>
+          <li>Established program-level reporting via qTest, Report Portal, and Delivery Central; published sprint/quarterly dashboards on pass rates, coverage trends, defect ratios, and new test growth - enabling leadership to make data-driven release decisions.</li>
+          <li>Partnered cross-functionally with PMs, BAs, developers, QA, and UX teams to refine requirements, define acceptance criteria, and maximize automation ROI.</li>
+          <li>Enhanced data-driven testing by applying JSON Schema validation and leveraging Apache POI, SuperCSV, JSoup, and Gson/Guava to parse structured and unstructured data.</li>
+          <li>Led interim mobile automation for Android (Espresso/Kotlin) and iOS (XCUITest/Swift); stabilized frameworks, restructured test suites, and validated executions via Sauce Labs to ensure seamless team transition.</li>
+        </ul>
+        <div class="job-subsection">
+          <div class="job-subsection-title">Key Projects</div>
+          <ol class="project-list">
+            <li><strong>Enterprise Platform Migration:</strong> Led end-to-end validation and cutover readiness for a multi-banner migration to a unified digital platform; executed multi-environment regression and launch checks, delivering a pre-holiday release with zero critical incidents.</li>
+            <li><strong>Triangle Rewards Partnership Petro-Points:</strong> Validated account linking and point conversion flows (Petro-Points to Canadian Tire Money). Overcame cross-organizational test setup challenges to enable a nationwide loyalty partnership.</li>
+            <li><strong>Single Sign-On:</strong> Led testing of unified authentication across multiple retail banners, safeguarding a smooth dual-auth rollout and ensuring uninterrupted customer access.</li>
+            <li><strong>PDP Enhancement:</strong> Designed and executed end-to-end test strategies for new product detail page (PDP) delivery options.</li>
+            <li><strong>Store Fulfillment System Modernization:</strong> Directed parallel testing of legacy and modernized store fulfillment systems, enabling franchise owners to validate workflows and adopt the new cloud-based platform with minimal disruption.</li>
+            <li><strong>Cookie Consent Compliance:</strong> Drove compliance testing for cookie preference controls, safeguarding customer trust by ensuring transparency and adherence to Canadian privacy requirements.</li>
+            <li><strong>Balloon Pre-Order Service:</strong> Validated the launch of balloon bouquet pre-orders, ensuring accurate PDP details (helium, ribbon), correct pickup slot logic, and reliable reminders to improve customer convenience.</li>
+          </ol>
+        </div>
+        <div class="job-subsection">
+          <div class="job-subsection-title">Certifications</div>
+          <ul class="skills-list">
+            <li>Microsoft AZ-900: Azure Fundamentals</li>
+            <li>Scaled Agile Framework (SAFe) 6.0</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="job">
+        <div class="job-header">
+          <div class="company">LoyaltyOne | Toronto</div>
+          <div class="title-dates">Quality Engineer | May 2019 – April 2023</div>
+        </div>
+        <ul class="skills-list">
+          <li>Built and maintained robust automation frameworks in Java, Selenium, WebDriver, Cucumber (BDD), and JUnit/TestNG, improving reusability, stability, and CI reliability.</li>
+          <li>Automated REST API testing with REST Assured, validating JSON payloads and ensuring alignment between UI and API layers.</li>
+          <li>Integrated automation into Jenkins pipelines, standardized Maven builds, and enforced GitHub branching strategies to reduce merge conflicts and maintain a clean main branch.</li>
+          <li>Expanded automated test coverage across smoke, functional, regression, integration, end- to-end, cross-browser, backend, and UAT suites, boosting overall product confidence.</li>
+          <li>Authored and maintained RTM, test plans, and test cases; facilitated TDD/BDD walkthroughs with developers and stakeholders to align on acceptance criteria.</li>
+          <li>Partnered with PMs, Agile managers, Product Owners, BAs, designers, copywriters, and integration teams to align testing with business/UX goals and support sprint planning, story-pointing, and release readiness.</li>
+          <li>Supported UAT by preparing scenarios and test data, conducting stakeholder demos, coordinating execution via Slack/Teams, and triaging feedback for timely fixes.</li>
+          <li>Performed SQL data setup and validation (SQL Server, Toad) with DBAs to provision stable, reusable test datasets.</li>
+          <li>Ensured AODA/WCAG 2.1 accessibility compliance using Siteimprove and assistive technologies; logged accessibility issues and tracked remediation.</li>
+          <li>Collaborated with design teams in Figma and Zeplin to validate component-level alignment between design specs and implementation.</li>
+          <li>Contributed to AEM content workflows (authoring, publishing, content fragments) and validated environments/CDN performance with AWS and Akamai.</li>
+          <li>Delivered transparent quality reporting in Jira, Confluence, and TestRail, covering execution metrics, defects, and release readiness for QA and project leadership.</li>
+          <li>Onboarded and mentored offshore Quality Engineers, standardizing best practices and repository conventions to accelerate ramp-up and ensure consistency.</li>
+        </ul>
+        <div class="job-subsection">
+          <div class="job-subsection-title">Key Projects</div>
+          <ol class="project-list">
+            <li><strong>Digital Experience Modernization &amp; Brand Refresh:</strong> Validated full site redesign and brand relaunch (“It’s All Gravy”), validated accessibility (WCAG 2.1, NVDA, Siteimprove), expanding automation coverage, and ensuring bilingual (EN/FR) consistency.</li>
+            <li><strong>Login System Modernization:</strong> Supported modernization of legacy login systems, overseeing migration to secure email &amp; password and ensuring registration, recovery, and phased rollout worked seamlessly to improve usability and strengthen platform security.</li>
+            <li><strong>Self-Service Missing Miles Tool:</strong> Validated online claim form workflows, ensuring accurate submissions and reducing call center dependency while improving customer trust through transparency.</li>
+          </ol>
+        </div>
+        <div class="job-subsection">
+          <div class="job-subsection-title">Certifications</div>
+          <ul class="skills-list">
+            <li>AWS Cloud Practitioner Essentials</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="job">
+        <div class="job-header">
+          <div class="company">TatvaSoft | India</div>
+          <div class="title-dates">QA Automation Engineer | Oct 2015 – March 2017</div>
+        </div>
+        <ul class="skills-list">
+          <li>Developed and executed UI automation using Selenium WebDriver and TestNG, increasing coverage and reducing manual testing effort.</li><li>Implemented Page Object Model (POM) and data-driven frameworks, improving reusability and minimizing maintenance.</li><li>Authored and maintained test plans, scenarios, cases, and data from BRDs; revised test cases as specifications evolved and managed RTM to ensure complete requirement coverage.</li><li>Performed SQL Server validations by writing/tuning queries, verifying end-to-end data flows, and coordinating test-data setup for accuracy.</li><li>Executed GUI, functional, system, integration, and regression tests; logged and triaged defects, set severity/priority, and tracked lifecycle in HP ALM/Quality Center through retest and closure.</li><li>Participated in requirements reviews and test walkthroughs; delivered daily/weekly execution and status reports to QA leads for visibility.</li><li>Integrated automated suites into Jenkins and maintained Maven project structure, enabling continuous integration and faster feedback loops.</li><li>Contributed to QA process improvements, enhancing delivery consistency and overall effectiveness.</li>
+        </ul>
+      </div>
+    
+    </section>
+
+    <section class="section section-divider">
+      <h2>Technical Skills</h2>
+      <ul class="skills-list">
+        <li><span class='skill-cat'>Languages &amp; Frameworks:</span> Java 17, Spring Boot, Selenium WebDriver, Selenide, Cucumber (BDD), JUnit, TestNG, REST Assured</li>
+        <li><span class='skill-cat'>Automation &amp; Tools:</span> qTest, Report Portal, Delivery Central, TestRail, Jenkins, Azure Pipelines, Gradle, Docker, Maven, GitHub, IntelliJ, Sauce Labs</li>
+        <li><span class='skill-cat'>Cloud &amp; Platforms:</span> AEM, Akamai, Azure, SAP Commerce Cloud (Hybris), SAP Customer Data Cloud (Gigya), Epsilon Loyalty, DOM, AWS</li>
+        <li><span class='skill-cat'>Testing Types:</span> Smoke, Sanity, Regression, Integration, System, UAT, End-to-End, Accessibility Testing (AODA/WCAG)</li>
+        <li><span class='skill-cat'>Collaboration &amp; Reporting:</span> Jira, Confluence, Teams, Slack, Figma, Zeplin, Lucidchart, Webex, Box</li>
+      </ul>
+    </section>
+
+    <section class="section section-divider">
+      <h2>Education</h2>
+      <ul class="skills-list">
+        <li><span class="edu-degree">Master of Engineering</span>, University of Windsor <span class="edu-date">(2017–2019)</span></li>
+        <li><span class="edu-degree">Bachelor of Engineering</span>, Gujarat Technological University (GTU) <span class="edu-date">(2011–2015)</span></li>
+      </ul>
+    </section>
+  </div>
+  <div class="optin-overlay" id="optin-overlay" aria-hidden="true">
+    <div class="optin-card" role="dialog" aria-modal="true" aria-labelledby="optin-title">
+      <h3 id="optin-title">Quick hello?</h3>
+      <p>Leave your name so I know who viewed this. Email is optional.</p>
+      <form id="optin-form">
+        <div class="optin-field">
+          <label for="optin-name">Name (required)</label>
+          <input id="optin-name" name="name" autocomplete="name" />
+        </div>
+        <div class="optin-field">
+          <label for="optin-email">Email (optional)</label>
+          <input id="optin-email" name="email" type="email" autocomplete="email" />
+        </div>
+        <div class="optin-error" id="optin-error"></div>
+        <div class="optin-actions">
+          <button class="primary" type="submit">OK</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    const OPTIN_API_URL = "https://6x183mmncd.execute-api.us-east-2.amazonaws.com/prod/optin";
+
+    const overlayEl = document.getElementById("optin-overlay");
+    const formEl = document.getElementById("optin-form");
+    const nameEl = document.getElementById("optin-name");
+    const emailEl = document.getElementById("optin-email");
+    const errorEl = document.getElementById("optin-error");
+
+    const showError = (message) => {
+      errorEl.textContent = message;
+      errorEl.classList.add("is-visible");
+    };
+
+    const clearError = () => {
+      errorEl.textContent = "";
+      errorEl.classList.remove("is-visible");
+    };
+
+    const closeOverlay = () => {
+      overlayEl.classList.remove("is-open");
+      overlayEl.setAttribute("aria-hidden", "true");
+    };
+
+    const openOverlay = () => {
+      overlayEl.classList.add("is-open");
+      overlayEl.setAttribute("aria-hidden", "false");
+      nameEl.focus();
+    };
+
+    formEl.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearError();
+
+      const name = (nameEl.value || "").trim();
+      const email = (emailEl.value || "").trim();
+
+      if (!name) {
+        showError("Please enter your name (email is optional).");
+        return;
+      }
+
+      try {
+        await fetch(OPTIN_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email: email || null,
+            page: "resume"
+          })
+        });
+      } catch (err) {
+        showError("Sorry, something went wrong. Please try again.");
+        return;
+      }
+
+      closeOverlay();
+    });
+
+    window.addEventListener("load", () => {
+      openOverlay();
+    });
+  </script>
+</body>
+</html>
