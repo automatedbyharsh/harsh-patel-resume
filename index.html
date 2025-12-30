@@ -169,9 +169,12 @@
     .optin-overlay.is-open { display: flex; }
     .optin-card {
       width: min(520px, 100%);
-      background: #fff;
-      border: 2px solid var(--ink);
-      box-shadow: none;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
       padding: 20px;
     }
     .optin-card h3 {
