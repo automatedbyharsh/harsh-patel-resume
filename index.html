@@ -221,6 +221,12 @@
       font-weight: 700;
       cursor: pointer;
     }
+    .optin-actions .secondary {
+      background: #f2f2f2;
+      border-color: #c9c9c9;
+      color: var(--ink);
+      margin-left: auto;
+    }
     .optin-actions .primary {
       background: var(--accent);
       border-color: var(--accent);
@@ -370,7 +376,7 @@
       <p>Leave your name so I know who viewed this. A note is optional.</p>
       <form id="optin-form">
         <div class="optin-field">
-          <label for="optin-name">Name (required)</label>
+          <label for="optin-name">Name (optional)</label>
           <input id="optin-name" name="name" autocomplete="name" />
         </div>
         <div class="optin-field">
@@ -379,7 +385,8 @@
         </div>
         <div class="optin-error" id="optin-error"></div>
         <div class="optin-actions">
-          <button class="primary" type="submit">OK</button>
+          <button class="primary" type="submit">Submit</button>
+          <button class="secondary" type="button" id="optin-skip">Skip</button>
         </div>
       </form>
     </div>
@@ -394,6 +401,7 @@
     const noteEl = document.getElementById("optin-note");
     const errorEl = document.getElementById("optin-error");
     const viewerCountEl = document.getElementById("viewer-count");
+    const skipBtn = document.getElementById("optin-skip");
 
     const showError = (message) => {
       errorEl.textContent = message;
@@ -415,6 +423,20 @@
       overlayEl.setAttribute("aria-hidden", "false");
       nameEl.focus();
     };
+
+    skipBtn?.addEventListener("click", () => closeOverlay());
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeOverlay();
+      }
+    });
+
+    overlayEl.addEventListener("click", (event) => {
+      if (event.target === overlayEl) {
+        closeOverlay();
+      }
+    });
 
     async function incrementView() {
       try {
@@ -459,11 +481,6 @@
 
       const name = (nameEl.value || "").trim();
       const note = (noteEl.value || "").trim();
-
-      if (!name) {
-        showError("Please enter your name (note is optional).");
-        return;
-      }
 
       try {
         await fetch(OPTIN_API_URL, {
