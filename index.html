@@ -252,7 +252,7 @@
       <h1 class="name">Harsh Patel</h1>
       <p class="contact">Toronto &nbsp;|&nbsp; 647-807-7509 &nbsp;|&nbsp; <a href="mailto:harshkumar.patel2107@gmail.com">harshkumar.patel2107@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/harsh-patel-canadian-tire-10april2023/" target="_blank" rel="noopener">LinkedIn</a></p>
       <div class="pdf-link">
-        <div class="viewer-count" id="viewer-count">Profile views: —</div>
+        <div class="viewer-count" id="viewer-count">Profile Views: —</div>
         Download PDF: <a href="resume/Harsh_Patel_Resume.pdf" target="_blank" rel="noopener">Harsh_Patel_Resume.pdf</a>
       </div>
     </header>
@@ -459,7 +459,7 @@
         const res = await fetch(STATS_API_URL, { method: "GET" });
         const data = await res.json();
         if (data?.ok && typeof data.views === "number" && viewerCountEl) {
-          viewerCountEl.textContent = `Profile views: ${data.views}`;
+          viewerCountEl.textContent = `Profile Views: ${data.views}`;
         }
       } catch {
         // ignore
