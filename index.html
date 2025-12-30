@@ -194,6 +194,13 @@
       padding: 10px 12px;
       font-size: 14px;
     }
+    .optin-field textarea {
+      border: 1px solid var(--rule);
+      padding: 10px 12px;
+      font-size: 14px;
+      min-height: 110px;
+      resize: vertical;
+    }
     .optin-error {
       color: #b00020;
       font-size: 13px;
@@ -360,15 +367,15 @@
   <div class="optin-overlay" id="optin-overlay" aria-hidden="true">
     <div class="optin-card" role="dialog" aria-modal="true" aria-labelledby="optin-title">
       <h3 id="optin-title">Hello/ Bonjour!</h3>
-      <p>Leave your name so I know who viewed this. Email is optional.</p>
+      <p>Leave your name so I know who viewed this. A note is optional.</p>
       <form id="optin-form">
         <div class="optin-field">
           <label for="optin-name">Name (required)</label>
           <input id="optin-name" name="name" autocomplete="name" />
         </div>
         <div class="optin-field">
-          <label for="optin-email">Email (optional)</label>
-          <input id="optin-email" name="email" type="email" autocomplete="email" />
+          <label for="optin-note">Note (optional)</label>
+          <textarea id="optin-note" name="note" placeholder="Leave a quick message if you'd like."></textarea>
         </div>
         <div class="optin-error" id="optin-error"></div>
         <div class="optin-actions">
@@ -384,7 +391,7 @@
     const overlayEl = document.getElementById("optin-overlay");
     const formEl = document.getElementById("optin-form");
     const nameEl = document.getElementById("optin-name");
-    const emailEl = document.getElementById("optin-email");
+    const noteEl = document.getElementById("optin-note");
     const errorEl = document.getElementById("optin-error");
     const viewerCountEl = document.getElementById("viewer-count");
 
@@ -451,10 +458,10 @@
       clearError();
 
       const name = (nameEl.value || "").trim();
-      const email = (emailEl.value || "").trim();
+      const note = (noteEl.value || "").trim();
 
       if (!name) {
-        showError("Please enter your name (email is optional).");
+        showError("Please enter your name (note is optional).");
         return;
       }
 
@@ -464,7 +471,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name,
-            email: email || null,
+            note: note || null,
             page: "resume"
           })
         });
